@@ -1,0 +1,56 @@
+## Build Folders
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## Rider
+.idea/
+*.sln.iml
+
+## ASP.NET Publish Output
+wwwroot/dist/
+wwwroot/node_modules/
+publish/
+*.publish.xml
+
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Backup & temp files
+*.bak
+*.tmp
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# dotnet secrets
+secrets.json
+
+# Package directories
+node_modules/
+packages/
+.nuget/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Logs
+*.log
+
+# EF Core Migrations Snapshot (optional)
+*Migrations/*.csproj
