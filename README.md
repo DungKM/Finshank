@@ -37,3 +37,7 @@ dotnet ef migrations add Init
 
 # 7. Cập nhật cơ sở dữ liệu từ migration
 dotnet ef database update
+
+dotnet ef migrations add Identity
+
+dotnet ef database update
