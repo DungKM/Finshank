@@ -74,6 +74,11 @@ namespace api.Repository
 
         }
 
+        public async Task<Stock?> GetBySystemAsync(string system)
+        {
+            return await _context.Stock.FirstOrDefaultAsync(s => s.System == system);
+        }
+
         public Task<bool> StockExists(int id)
         {
             return _context.Stock.AnyAsync(x => x.Id == id);
