@@ -41,3 +41,5 @@ dotnet ef database update
 dotnet ef migrations add Identity
 
 dotnet ef database update
+
+dotnet ef migrations add SeedRole
