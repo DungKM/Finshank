@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace api.Models
 {
-    public class AppUser: IdentityUser
+    public class AppUser : IdentityUser
     {
-        // Additional properties can be added here if needed
-        // For example, you might want to add FirstName, LastName, etc.
+        public List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
+        
     }
  
 }
