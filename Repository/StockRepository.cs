@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -42,15 +43,25 @@ namespace api.Repository
         }
 
         // Other repository methods can be added here as needed
-        public Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            return _context.Stock.Include(c => c.Comments).ToListAsync();
+             var stocks = _context.Stock.Include(c => c.Comments).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.CompanyName))
+            {
+                stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
+            }
+            if (!string.IsNullOrWhiteSpace(query.Symtem))
+            {
+                stocks = stocks.Where(s => s.System.Contains(query.Symtem));
+            }
+            
+            return await stocks.ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
             return await _context.Stock.Include(c => c.Comments).FirstOrDefaultAsync(i => i.Id == id);
-
+            
         }
 
         public Task<bool> StockExists(int id)
