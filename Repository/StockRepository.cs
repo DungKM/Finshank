@@ -45,7 +45,7 @@ namespace api.Repository
         // Other repository methods can be added here as needed
         public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-             var stocks = _context.Stock.Include(c => c.Comments).AsQueryable();
+            var stocks = _context.Stock.Include(c => c.Comments).AsQueryable();
             if (!string.IsNullOrWhiteSpace(query.CompanyName))
             {
                 stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
@@ -54,19 +54,27 @@ namespace api.Repository
             {
                 stocks = stocks.Where(s => s.System.Contains(query.Symtem));
             }
-            
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (query.SortBy.Equals("System", StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = query.IsDescending
+                        ? stocks.OrderByDescending(s => s.System)
+                        : stocks.OrderBy(s => s.System);
+                }
+            }
             return await stocks.ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
             return await _context.Stock.Include(c => c.Comments).FirstOrDefaultAsync(i => i.Id == id);
-            
+
         }
 
         public Task<bool> StockExists(int id)
         {
-           return _context.Stock.AnyAsync(x => x.Id == id);
+            return _context.Stock.AnyAsync(x => x.Id == id);
         }
 
         public async Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto stockDto)
@@ -87,6 +95,6 @@ namespace api.Repository
             return existingStock;
         }
 
-       
+
     }
 }
